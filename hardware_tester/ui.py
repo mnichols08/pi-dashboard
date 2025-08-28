@@ -2,14 +2,19 @@
 UI module: Terminal UI logic for hardware testing suite.
 """
 
-def run_ui():
+def run_ui() -> None:
+    """
+    Run the terminal-based UI for the hardware testing suite.
+    Presents a menu and displays test results interactively.
+    """
     from rich.console import Console
     from rich.prompt import Prompt
     from rich.table import Table
 
     console = Console()
 
-    def show_menu():
+    def show_menu() -> None:
+        """Display the main menu options."""
         console.print("[bold cyan]Hardware Tester Suite[/bold cyan]")
         console.print("[green]Select a test:[/green]")
         console.print("1. GPS Test")
@@ -17,7 +22,11 @@ def run_ui():
         console.print("3. Voltage Divider Test")
         console.print("4. Exit")
 
-    def show_gps(gps_data):
+    def show_gps(gps_data: dict) -> None:
+        """Display GPS test results in a table.
+        Args:
+            gps_data (dict): Dictionary of GPS metrics.
+        """
         table = Table(title="GPS Test Results")
         table.add_column("Metric")
         table.add_column("Value")
@@ -27,7 +36,11 @@ def run_ui():
         table.add_row("Location", str(gps_data.get("location", "N/A")))
         console.print(table)
 
-    def show_arduino(arduino_data):
+    def show_arduino(arduino_data: dict) -> None:
+        """Display Arduino test results in a table.
+        Args:
+            arduino_data (dict): Dictionary of Arduino sensor values.
+        """
         table = Table(title="Arduino Test Results")
         table.add_column("Input")
         table.add_column("Status")
@@ -58,8 +71,11 @@ def run_ui():
                 table.add_row(inp, str(val))
         console.print(table)
 
-
-    def show_voltage_divider(divider_data):
+    def show_voltage_divider(divider_data: dict) -> None:
+        """Display voltage divider test results in a table.
+        Args:
+            divider_data (dict): Dictionary of divider statuses.
+        """
         table = Table(title="Voltage Divider Test Results")
         table.add_column("Divider")
         table.add_column("Status")
@@ -68,57 +84,86 @@ def run_ui():
         console.print(table)
 
     # Placeholder mock data for demonstration
-    gps_data = {"mph": 55, "gyro": "OK", "compass": "N", "location": "37.7749,-122.4194"}
-    arduino_data = {
-        "Boost": 14.7,  # psi
-        "Oil Pressure": 45,  # psi
-        "Fuel Pressure": 38,  # psi
-        "AFR": 12.5,  # air:fuel ratio
-        "Water Temp": 180,  # deg F
-        "Voltage": 12.6,  # V
-        "Current": 1.2  # A
-    }
-    divider_data = {f"Divider {i}": "OK" if i % 2 == 0 else "N/A" for i in range(1, 23)}
+    import random
+    def generate_gps_data() -> dict:
+        """Simulate new GPS data."""
+        return {
+            "mph": random.randint(0, 120),
+            "gyro": random.choice(["OK", "WARN", "FAIL"]),
+            "compass": random.choice(["N", "S", "E", "W"]),
+            "location": f"{round(random.uniform(-90,90),4)},{round(random.uniform(-180,180),4)}"
+        }
 
+    def generate_arduino_data() -> dict:
+        """Simulate new Arduino sensor data."""
+        return {
+            "Boost": round(random.uniform(0, 20), 1),
+            "Oil Pressure": random.randint(0, 80),
+            "Fuel Pressure": random.randint(0, 60),
+            "AFR": round(random.uniform(10, 16), 1),
+            "Water Temp": random.randint(160, 220),
+            "Voltage": round(random.uniform(11, 14), 2),
+            "Current": round(random.uniform(0, 2), 2)
+        }
+
+    def generate_divider_data() -> dict:
+        """Simulate new voltage divider statuses."""
+        return {f"Divider {i}": random.choice(["OK", "N/A", "WARN"]) for i in range(1, 23)}
+
+    gps_data: dict = generate_gps_data()
+    arduino_data: dict = generate_arduino_data()
+    divider_data: dict = generate_divider_data()
+
+    last_choice: str = None
     while True:
         show_menu()
         try:
-            choice = Prompt.ask("Enter choice", choices=["1", "2", "3", "4"], default="4")
+            choice: str = Prompt.ask("Enter choice", choices=["1", "2", "3", "4"], default="4")
         except Exception as e:
             console.print(f"[red]Error reading input: {e}[/red]")
             continue
 
-        if choice == "1":
-            try:
-                show_gps(gps_data)
-                console.print("[bold green]GPS test completed successfully.[/bold green]")
-            except Exception as e:
-                console.print(f"[red]GPS test failed: {e}[/red]")
-        elif choice == "2":
-            try:
-                show_arduino(arduino_data)
-                console.print("[bold green]Arduino test completed successfully.[/bold green]")
-            except Exception as e:
-                console.print(f"[red]Arduino test failed: {e}[/red]")
-        elif choice == "3":
-            try:
-                show_voltage_divider(divider_data)
-                console.print("[bold green]Voltage divider test completed successfully.[/bold green]")
-            except Exception as e:
-                console.print(f"[red]Voltage divider test failed: {e}[/red]")
-        elif choice == "4":
-            console.print("Exiting...")
-            break
-        else:
-            console.print("[yellow]Invalid choice. Please select a valid option.[/yellow]")
+        last_choice = choice
+
+        def run_test(choice: str) -> None:
+            if choice == "1":
+                try:
+                    show_gps(gps_data)
+                    console.print("[bold green]GPS test completed successfully.[/bold green]")
+                except Exception as e:
+                    console.print(f"[red]GPS test failed: {e}[/red]")
+            elif choice == "2":
+                try:
+                    show_arduino(arduino_data)
+                    console.print("[bold green]Arduino test completed successfully.[/bold green]")
+                except Exception as e:
+                    console.print(f"[red]Arduino test failed: {e}[/red]")
+            elif choice == "3":
+                try:
+                    show_voltage_divider(divider_data)
+                    console.print("[bold green]Voltage divider test completed successfully.[/bold green]")
+                except Exception as e:
+                    console.print(f"[red]Voltage divider test failed: {e}[/red]")
+            elif choice == "4":
+                console.print("Exiting...")
+                exit()
+            else:
+                console.print("[yellow]Invalid choice. Please select a valid option.[/yellow]")
+
+        run_test(choice)
 
         # Offer to refresh or return to menu
-        refresh = Prompt.ask("Press [r] to refresh, [m] for menu, or [q] to quit", choices=["r", "m", "q"], default="m")
+        refresh: str = Prompt.ask("Press [r] to refresh data, [m] to return to menu, or [q] to quit", choices=["r", "m", "q"], default="m")
         if refresh == "q":
             console.print("Exiting...")
             break
         elif refresh == "r":
             console.print("Refreshing data...")
-            # Here you could re-fetch or simulate new data
+            gps_data = generate_gps_data()
+            arduino_data = generate_arduino_data()
+            divider_data = generate_divider_data()
+            run_test(last_choice)
             continue
-        # else returns to menu
+        elif refresh == "m":
+            console.print("Returning to menu...")
+            continue
