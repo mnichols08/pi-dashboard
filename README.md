@@ -287,12 +287,11 @@ All users and contributors are welcome! If you have suggestions, bug reports, or
 
 ## Roadmap
 
-- Configurable gauge layouts and themes
-- Offline maps and trip recording
-- Alert rules (thresholds, latching, chimes)
-- CAN bus integration (future)
-- OTA updates and backup/restore
-- Unit tests and CI
+
+ - HVAC integration: Servo motor control for heater temperature, air direction, and flow
+ - Clutch and brake pedal switch inputs
+ - Gear position sensing using magnetic switches
+ - Additional sensor and actuator support as needed
 
 ## Repository
 
