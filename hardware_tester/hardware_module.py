@@ -20,8 +20,4 @@ class HardwareModule(ABC):
         Returns:
             dict: Data from the hardware module.
         """
-        try:
-            pass
-        except Exception as exc:
-            logging.error(f"HardwareModule get_data error: {exc}")
-            return {"error": str(exc)}
+        pass

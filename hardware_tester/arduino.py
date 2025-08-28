@@ -17,12 +17,15 @@ class ArduinoModule(HardwareModule):
     def get_data(self) -> dict:
         """
         Retrieve data from Arduino via serial communication or mock for testing.
+
         Returns:
             dict: Dictionary of Arduino sensor values.
+
+        Raises:
+            Exception: If serial communication fails (when not in mock mode).
         """
         try:
             if self.use_mock:
-                # MOCK: Simulate Arduino sensor data for testing/demo
                 data = {
                     "Boost": round(random.uniform(0, 20), 1),
                     "Oil Pressure": random.randint(0, 80),
@@ -34,15 +37,16 @@ class ArduinoModule(HardwareModule):
                 }
                 logging.info(f"Arduino mock data: {data}")
                 return data
-            # TODO: Implement serial reading from Arduino
-            # Simulate error for demonstration
-            # raise Exception("Serial connection failed")
-            data = {
-                "inputs": [],
-                "outputs": []
-            }
-            logging.info(f"Arduino real data: {data}")
-            return data
+            else:
+                # TODO: Implement serial reading from Arduino
+                # Simulate error for demonstration
+                # raise Exception("Serial connection failed")
+                data = {
+                    "inputs": [],
+                    "outputs": []
+                }
+                logging.info(f"Arduino real data: {data}")
+                return data
         except Exception as exc:
             logging.error(f"Arduino get_data error: {exc}")
             return {"error": str(exc)}
