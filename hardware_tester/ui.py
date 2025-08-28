@@ -27,7 +27,7 @@ def run_ui():
         table.add_row("Location", str(gps_data.get("location", "N/A")))
         console.print(table)
 
-    def show_arduino():
+    def show_arduino(arduino_data):
         table = Table(title="Arduino Test Results")
         table.add_column("Input")
         table.add_column("Status")
@@ -35,7 +35,8 @@ def run_ui():
             table.add_row(inp, str(val))
         console.print(table)
 
-    def show_voltage_divider():
+
+    def show_voltage_divider(divider_data):
         table = Table(title="Voltage Divider Test Results")
         table.add_column("Divider")
         table.add_column("Status")
