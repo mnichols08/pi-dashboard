@@ -28,19 +28,28 @@ def run_ui():
         console.print(table)
 
     def show_arduino():
-        table = Table(title="Arduino Test Results (Placeholder)")
-        table.add_column("Input/Output")
-        table.add_column("Value")
-        table.add_row("Inputs", "N/A")
-        table.add_row("Outputs", "N/A")
+        table = Table(title="Arduino Test Results")
+        table.add_column("Input")
+        table.add_column("Status")
+        arduino_inputs = [
+            "Boost",
+            "Oil Pressure",
+            "Fuel Pressure",
+            "AFR",
+            "Water Temp",
+            "Voltage",
+            "Current"
+        ]
+        for inp in arduino_inputs:
+            table.add_row(inp, "N/A")
         console.print(table)
 
     def show_voltage_divider():
-        table = Table(title="Voltage Divider Test Results (Placeholder)")
+        table = Table(title="Voltage Divider Test Results")
         table.add_column("Divider")
         table.add_column("Status")
-        table.add_row("Divider 1", "N/A")
-        table.add_row("Divider 2", "N/A")
+        for i in range(1, 23):
+            table.add_row(f"Divider {i}", "N/A")
         console.print(table)
 
     while True:
