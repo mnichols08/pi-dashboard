@@ -1,8 +1,10 @@
 """
 Base class for hardware modules in the Hardware Abstraction Layer (HAL).
+Enhanced with logging for hardware errors and test results.
 """
 
 from abc import ABC, abstractmethod
+import logging
 
 class HardwareModule(ABC):
     """
@@ -15,4 +17,8 @@ class HardwareModule(ABC):
         Returns:
             dict: Data from the hardware module.
         """
-        pass
+        try:
+            pass
+        except Exception as exc:
+            logging.error(f"HardwareModule get_data error: {exc}")
+            return {"error": str(exc)}

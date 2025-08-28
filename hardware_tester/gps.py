@@ -1,10 +1,11 @@
 """
 GPS module: Handles GPS data parsing and communication using HAL.
+Enhanced with logging for hardware errors, connection issues, and test results.
 """
 
 from hardware_module import HardwareModule
-
 import random
+import logging
 
 class GPSModule(HardwareModule):
     """
@@ -19,18 +20,26 @@ class GPSModule(HardwareModule):
         Returns:
             dict: Dictionary with keys 'mph', 'gyro', 'compass', 'location'.
         """
-        if self.use_mock:
-            # MOCK: Simulate GPS data for testing/demo
-            return {
-                "mph": random.randint(0, 120),
-                "gyro": random.choice(["OK", "WARN", "FAIL"]),
-                "compass": random.choice(["N", "S", "E", "W"]),
-                "location": f"{round(random.uniform(-90,90),4)},{round(random.uniform(-180,180),4)}"
+        try:
+            if self.use_mock:
+                # MOCK: Simulate GPS data for testing/demo
+                data = {
+                    "mph": random.randint(0, 120),
+                    "gyro": random.choice(["OK", "WARN", "FAIL"]),
+                    "compass": random.choice(["N", "S", "E", "W"]),
+                    "location": f"{round(random.uniform(-90,90),4)},{round(random.uniform(-180,180),4)}"
+                }
+                logging.info(f"GPS mock data: {data}")
+                return data
+            # TODO: Implement serial reading and NMEA parsing
+            data = {
+                "mph": None,
+                "gyro": None,
+                "compass": None,
+                "location": None
             }
-        # TODO: Implement serial reading and NMEA parsing
-        return {
-            "mph": None,
-            "gyro": None,
-            "compass": None,
-            "location": None
-        }
+            logging.info(f"GPS real data: {data}")
+            return data
+        except Exception as exc:
+            logging.error(f"GPS get_data error: {exc}")
+            return {"error": str(exc)}

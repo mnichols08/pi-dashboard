@@ -1,10 +1,11 @@
 """
 Voltage Divider module: Reads GPIO pins for voltage divider status using HAL.
+Enhanced with logging for hardware errors, connection issues, and test results.
 """
 
 from hardware_module import HardwareModule
-
 import random
+import logging
 
 class VoltageDividerModule(HardwareModule):
     """
@@ -19,11 +20,19 @@ class VoltageDividerModule(HardwareModule):
         Returns:
             dict: Dictionary with divider names as keys and status as string values.
         """
-        if self.use_mock:
-            # MOCK: Simulate voltage divider statuses for testing/demo
-            return {f"Divider {i}": random.choice(["OK", "N/A", "WARN"]) for i in range(1, 23)}
-        # TODO: Implement GPIO reading
-        return {
-            "divider1": False,
-            "divider2": False
-        }
+        try:
+            if self.use_mock:
+                # MOCK: Simulate voltage divider statuses for testing/demo
+                data = {f"Divider {i}": random.choice(["OK", "N/A", "WARN"]) for i in range(1, 23)}
+                logging.info(f"Voltage divider mock data: {data}")
+                return data
+            # TODO: Implement GPIO reading
+            data = {
+                "divider1": False,
+                "divider2": False
+            }
+            logging.info(f"Voltage divider real data: {data}")
+            return data
+        except Exception as exc:
+            logging.error(f"Voltage divider get_data error: {exc}")
+            return {"error": str(exc)}
