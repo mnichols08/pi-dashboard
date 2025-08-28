@@ -82,14 +82,43 @@ def run_ui():
 
     while True:
         show_menu()
-        choice = Prompt.ask("Enter choice", choices=["1", "2", "3", "4"], default="4")
+        try:
+            choice = Prompt.ask("Enter choice", choices=["1", "2", "3", "4"], default="4")
+        except Exception as e:
+            console.print(f"[red]Error reading input: {e}[/red]")
+            continue
+
         if choice == "1":
-            show_gps(gps_data)
+            try:
+                show_gps(gps_data)
+                console.print("[bold green]GPS test completed successfully.[/bold green]")
+            except Exception as e:
+                console.print(f"[red]GPS test failed: {e}[/red]")
         elif choice == "2":
-            show_arduino(arduino_data)
+            try:
+                show_arduino(arduino_data)
+                console.print("[bold green]Arduino test completed successfully.[/bold green]")
+            except Exception as e:
+                console.print(f"[red]Arduino test failed: {e}[/red]")
         elif choice == "3":
-            show_voltage_divider(divider_data)
+            try:
+                show_voltage_divider(divider_data)
+                console.print("[bold green]Voltage divider test completed successfully.[/bold green]")
+            except Exception as e:
+                console.print(f"[red]Voltage divider test failed: {e}[/red]")
         elif choice == "4":
             console.print("Exiting...")
             break
-        console.print("\n")
+        else:
+            console.print("[yellow]Invalid choice. Please select a valid option.[/yellow]")
+
+        # Offer to refresh or return to menu
+        refresh = Prompt.ask("Press [r] to refresh, [m] for menu, or [q] to quit", choices=["r", "m", "q"], default="m")
+        if refresh == "q":
+            console.print("Exiting...")
+            break
+        elif refresh == "r":
+            console.print("Refreshing data...")
+            # Here you could re-fetch or simulate new data
+            continue
+        # else returns to menu
