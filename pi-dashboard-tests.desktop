@@ -1,0 +1,7 @@
+ [Desktop Entry]
+Type=Application
+Name=Pi Dashboard Tests
+Exec=bash -c 'source ~/pi-dashboard-venv/bin/activate && cd ~/pi-dashboard/hardware_tester && python -m unittest discover'
+Icon=utilities-terminal
+Terminal=true
+Categories=PiDashboard;Testing;
