@@ -36,3 +36,8 @@ class VoltageDividerModule(HardwareModule):
         except Exception as exc:
             logging.error(f"Voltage divider get_data error: {exc}")
             return {"error": str(exc)}
+
+# API helper for dashboard_server.py
+def get_voltage_data():
+    module = VoltageDividerModule(use_mock=True)
+    return module.get_data()
