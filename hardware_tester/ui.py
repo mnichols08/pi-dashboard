@@ -2,20 +2,27 @@
 UI module: Terminal UI logic for hardware testing suite.
 """
 
-def run_ui() -> None:
+
+def run_ui(config: dict) -> None:
     """
     Run the terminal-based UI for the hardware testing suite.
     Presents a menu and displays test results interactively.
+    Accepts config dict for UI preferences and hardware settings.
     """
     from rich.console import Console
     from rich.prompt import Prompt
     from rich.table import Table
 
+    theme = config.get("ui", {}).get("theme", "dark")
+    show_logs = config.get("ui", {}).get("show_logs", True)
+    language = config.get("ui", {}).get("language", "en")
+
+    # Use default Console; ignore theme string for now
     console = Console()
 
     def show_menu() -> None:
         """Display the main menu options."""
-        console.print("[bold cyan]Hardware Tester Suite[/bold cyan]")
+        console.print(f"[bold cyan]Hardware Tester Suite ({language})[/bold cyan]")
         console.print("[green]Select a test:[/green]")
         console.print("1. GPS Test")
         console.print("2. Arduino Test")
@@ -84,6 +91,8 @@ def run_ui() -> None:
         console.print(table)
 
     # Placeholder mock data for demonstration
+    if show_logs:
+        console.print(f"[blue]Loaded config:[/blue] {config}")
     import random
     def generate_gps_data() -> dict:
         """Simulate new GPS data."""

@@ -1,0 +1,19 @@
+{
+  "hardware": {
+    "arduino_port": "COM3",
+    "gps_enabled": true,
+    "voltage_divider": {
+      "resistor1": 8400,
+      "resistor2": 2200
+    }
+  },
+  "test_parameters": {
+    "test_timeout": 10,
+    "retry_attempts": 3
+  },
+  "ui": {
+    "theme": "dark",
+    "show_logs": true,
+    "language": "en"
+  }
+}
