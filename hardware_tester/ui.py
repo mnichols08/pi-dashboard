@@ -2,13 +2,16 @@
 UI module: Terminal UI logic for hardware testing suite.
 Enhanced with logging for hardware errors, connection issues, and test results.
 """
+"""
+Terminal UI module for hardware tester.
+Handles user interaction and display.
+"""
 
 import logging
 logging.basicConfig(
     filename='hardware_tester.log',
     level=logging.INFO,
-    format='%(asctime)s %(levelname)s %(message)s'
-)
+    format='%(asctime)s %(levelname)s %(message)s')
 
 
 def run_ui(config: dict, arduino, gps, voltage_divider) -> None:

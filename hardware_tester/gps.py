@@ -7,6 +7,11 @@ from hardware_module import HardwareModule
 import random
 import logging
 
+"""
+GPS module for hardware tester.
+Handles GPS data acquisition and parsing.
+"""
+
 class GPSModule(HardwareModule):
     """
     GPS hardware module implementing HardwareModule interface.
