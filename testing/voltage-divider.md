@@ -1,4 +1,3 @@
-
 # Voltage Divider Testing Guide
 
 ## What is a Voltage Divider?
@@ -128,3 +127,30 @@ Before connecting your voltage divider to the Raspberry Pi GPIO, it's critical t
 - **Never connect vehicle 12 V directly to Pi pins.**
 
 If in doubt, ask for help or post your design for review before connecting to your Pi.
+
+---
+
+## Setup Instructions
+1. Assemble the voltage divider circuit as per the schematic.
+2. Connect the output to the Pi GPIO or Arduino analog pin.
+3. Verify resistor values and connections.
+4. Install required Python packages: `pip install -r requirements.txt`.
+
+## Running the Test
+Run in the `hardware_tester` directory:
+```powershell
+python voltage_divider.py
+```
+
+## Example Output
+```
+Voltage divider detected
+Input voltage: 5.00V
+Output voltage: 2.50V
+Test passed: Output matches expected value
+```
+
+## Troubleshooting Tips
+- If readings are incorrect, check resistor values and wiring.
+- Ensure the ADC or analog pin is functioning.
+- Use a multimeter to verify voltages before running the test.

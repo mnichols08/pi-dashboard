@@ -1,4 +1,3 @@
-
 # Raspberry Pi Communication Testing Guide
 
 This guide describes how to verify that your Raspberry Pi is efficiently communicating with all hardware components in the Pi Automotive Dashboard project.
@@ -106,3 +105,30 @@ This guide describes how to verify that your Raspberry Pi is efficiently communi
 - If any component fails, review wiring, config, and logs.
 - Use multimeter to verify voltages.
 - Check for errors in Python app output.
+
+---
+
+## Setup Instructions
+1. Ensure Raspberry Pi is powered and running Raspberry Pi OS.
+2. Connect all required hardware modules (Arduino, BerryGPS, RTC, etc.).
+3. Enable I2C, SPI, and Serial (`sudo raspi-config`).
+4. Install required Python packages: `pip install -r requirements.txt`.
+
+## Running the Test
+Run in the `hardware_tester` directory:
+```powershell
+python main.py
+```
+
+## Example Output
+```
+All hardware modules detected
+System health: OK
+Test passed: All modules responding
+```
+
+## Troubleshooting Tips
+- If a module is not detected, check connections and power supply.
+- Review logs in `hardware_tester.log` for error details.
+- Ensure all dependencies are installed and up to date.
+- Reboot the Raspberry Pi if hardware issues persist.

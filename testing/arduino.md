@@ -93,6 +93,33 @@ For each analog input (A0–A4 for gauges, A5 for voltage, A6 for current):
 	- Confirm the Arduino sketch is running and serial output is valid.
 	- Use a multimeter to verify voltages at the Arduino pin.
 
+---
+
+## Setup Instructions
+1. Connect the Arduino Nano to your Raspberry Pi via USB.
+2. Ensure analog sensors are wired to A0–A6 pins and a common ground is established.
+3. Flash the dashboard sketch to the Nano using Arduino IDE.
+4. Install required Python packages: `pip install -r requirements.txt`.
+
+## Running the Test
+Run in the `hardware_tester` directory:
+```powershell
+python main.py
+```
+
+## Example Output
+```
+Arduino detected on /dev/ttyUSB0
+Sensor readings: [Boost: 2.1V, Oil: 3.0V, Fuel: 1.8V, AFR: 2.5V, Water: 2.9V]
+Test passed: All sensors responding
+```
+
+## Troubleshooting Tips
+- If the Arduino is not detected, check USB connection and port settings.
+- Verify sensor voltage range and wiring.
+- Use `lsusb` to confirm Nano is detected.
+- Check for permission errors accessing the serial port.
+
 ## Tips
 
 - Use potentiometers for easy variable voltage testing.

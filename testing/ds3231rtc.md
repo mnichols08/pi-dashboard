@@ -113,3 +113,28 @@ Or use libraries like `adafruit-circuitpython-ds3231` for easier access.
 
 ---
 This guide helps ensure your Pi dashboard keeps accurate time for logging and timestamping, even when offline.
+
+---
+
+## Setup Instructions
+1. Connect DS3231 RTC to Pi I2C pins (SDA/SCL, VCC, GND).
+2. Enable I2C on the Pi (`sudo raspi-config`).
+3. Install required Python packages: `pip install -r requirements.txt`.
+
+## Running the Test
+Run in the `hardware_tester` directory:
+```powershell
+python main.py
+```
+
+## Example Output
+```
+DS3231 RTC detected
+Current time: 2025-08-28 14:32:10
+Test passed: RTC time matches system time
+```
+
+## Troubleshooting Tips
+- If RTC is not detected, check wiring and I2C address.
+- Replace battery if time resets after power loss.
+- Use `i2cdetect -y 1` to confirm module is detected.

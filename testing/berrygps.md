@@ -91,6 +91,34 @@ This guide covers how to set up and test the BerryGPS-IMU V4 module on your Rasp
 			```
 		- Reboot Pi.
 
+---
+
+## Setup Instructions
+1. Attach BerryGPS-IMU V4 to the Pi GPIO header (see wiring above).
+2. Enable I2C and Serial interfaces on the Pi (`sudo raspi-config`).
+3. Install required Python packages: `pip install -r requirements.txt`.
+
+## Running the Test
+Run in the `hardware_tester` directory:
+```powershell
+python gps.py
+```
+
+## Example Output
+```
+BerryGPS detected
+Latitude: 37.7749
+Longitude: -122.4194
+Satellites: 8
+Test passed: GPS data valid
+```
+
+## Troubleshooting Tips
+- If no GPS data, check antenna placement and wiring.
+- Ensure I2C and Serial are enabled.
+- Try running the test outdoors for better satellite reception.
+- Use `gpsmon` or `cgps` to verify data.
+
 ### References
 
 - [BerryGPS-IMU V4 Documentation](https://ozzmaker.com/berrygps-imu/)
