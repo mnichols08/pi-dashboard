@@ -7,6 +7,9 @@ Handles UI and orchestrates tests for GPS, Arduino, and voltage dividers.
 import json
 import os
 from ui import run_ui
+from arduino import ArduinoModule
+from gps import GPSModule
+from voltage_divider import VoltageDividerModule
 
 
 def load_config(config_path: str = None) -> dict:
@@ -24,7 +27,17 @@ def main() -> None:
     Loads config and runs the terminal UI.
     """
     config = load_config()
-    run_ui(config)
+
+    # Determine if mock/test data should be used (from config or default)
+    use_mock = config.get("use_mock", True)  # Default to True for safety; set to False for production
+
+    # Instantiate hardware modules with use_mock flag
+    arduino = ArduinoModule(use_mock=use_mock)
+    gps = GPSModule(use_mock=use_mock)
+    voltage_divider = VoltageDividerModule(use_mock=use_mock)
+
+    # Pass hardware modules to UI
+    run_ui(config, arduino, gps, voltage_divider)
 
 if __name__ == "__main__":
     main()

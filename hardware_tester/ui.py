@@ -3,11 +3,11 @@ UI module: Terminal UI logic for hardware testing suite.
 """
 
 
-def run_ui(config: dict) -> None:
+def run_ui(config: dict, arduino, gps, voltage_divider) -> None:
     """
     Run the terminal-based UI for the hardware testing suite.
     Presents a menu and displays test results interactively.
-    Accepts config dict for UI preferences and hardware settings.
+    Accepts config dict for UI preferences and hardware settings, and hardware module instances.
     """
     from rich.console import Console
     from rich.prompt import Prompt
@@ -119,9 +119,9 @@ def run_ui(config: dict) -> None:
         """Simulate new voltage divider statuses."""
         return {f"Divider {i}": random.choice(["OK", "N/A", "WARN"]) for i in range(1, 23)}
 
-    gps_data: dict = generate_gps_data()
-    arduino_data: dict = generate_arduino_data()
-    divider_data: dict = generate_divider_data()
+    gps_data: dict = gps.get_data()
+    arduino_data: dict = arduino.get_data()
+    divider_data: dict = voltage_divider.get_data()
 
     last_choice: str = None
     while True:
@@ -137,18 +137,21 @@ def run_ui(config: dict) -> None:
         def run_test(choice: str) -> None:
             if choice == "1":
                 try:
+                    gps_data = gps.get_data()
                     show_gps(gps_data)
                     console.print("[bold green]GPS test completed successfully.[/bold green]")
                 except Exception as e:
                     console.print(f"[red]GPS test failed: {e}[/red]")
             elif choice == "2":
                 try:
+                    arduino_data = arduino.get_data()
                     show_arduino(arduino_data)
                     console.print("[bold green]Arduino test completed successfully.[/bold green]")
                 except Exception as e:
                     console.print(f"[red]Arduino test failed: {e}[/red]")
             elif choice == "3":
                 try:
+                    divider_data = voltage_divider.get_data()
                     show_voltage_divider(divider_data)
                     console.print("[bold green]Voltage divider test completed successfully.[/bold green]")
                 except Exception as e:
@@ -168,9 +171,9 @@ def run_ui(config: dict) -> None:
             break
         elif refresh == "r":
             console.print("Refreshing data...")
-            gps_data = generate_gps_data()
-            arduino_data = generate_arduino_data()
-            divider_data = generate_divider_data()
+            gps_data = gps.get_data()
+            arduino_data = arduino.get_data()
+            divider_data = voltage_divider.get_data()
             run_test(last_choice)
             continue
         elif refresh == "m":
