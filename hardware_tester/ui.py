@@ -31,8 +31,31 @@ def run_ui():
         table = Table(title="Arduino Test Results")
         table.add_column("Input")
         table.add_column("Status")
+        unit_map = {
+            "AFR": "Air:Fuel Ratio",
+            "Fuel Pressure": "PSI",
+            "Oil Pressure": "PSI",
+            "Voltage": "V",
+            "Current": "A",
+            "Water Temp": "°F"
+        }
         for inp, val in arduino_data.items():
-            table.add_row(inp, str(val))
+            if inp == "AFR":
+                table.add_row("Air:Fuel Ratio", f"{val}:1")
+            elif inp == "Fuel Pressure":
+                table.add_row("Fuel Pressure", f"{val} PSI")
+            elif inp == "Oil Pressure":
+                table.add_row("Oil Pressure", f"{val} PSI")
+            elif inp == "Voltage":
+                table.add_row("Voltage", f"{val} V")
+            elif inp == "Current":
+                table.add_row("Current", f"{val} A")
+            elif inp == "Water Temp":
+                table.add_row("Water Temp", f"{val} °F")
+            elif inp == "Boost":
+                table.add_row("Boost", f"{val} PSI")
+            else:
+                table.add_row(inp, str(val))
         console.print(table)
 
 
@@ -47,13 +70,13 @@ def run_ui():
     # Placeholder mock data for demonstration
     gps_data = {"mph": 55, "gyro": "OK", "compass": "N", "location": "37.7749,-122.4194"}
     arduino_data = {
-        "Boost": "OK",
-        "Oil Pressure": "OK",
-        "Fuel Pressure": "Low",
-        "AFR": "OK",
-        "Water Temp": "OK",
-        "Voltage": "12.6V",
-        "Current": "1.2A"
+        "Boost": 14.7,  # psi
+        "Oil Pressure": 45,  # psi
+        "Fuel Pressure": 38,  # psi
+        "AFR": 12.5,  # air:fuel ratio
+        "Water Temp": 180,  # deg F
+        "Voltage": 12.6,  # V
+        "Current": 1.2  # A
     }
     divider_data = {f"Divider {i}": "OK" if i % 2 == 0 else "N/A" for i in range(1, 23)}
 

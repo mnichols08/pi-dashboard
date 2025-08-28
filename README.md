@@ -53,16 +53,38 @@ Works with most vehicles, including the 1990 Mitsubishi Eclipse—just match you
     - Fuses data and serves UI + WebSocket stream
     - Persists logs (CSV/Parquet)
 
+## Overview
+This project provides a hardware testing dashboard for Raspberry Pi and connected modules. It includes Python scripts to test and interact with hardware components such as Arduino, GPS, RTC, and voltage dividers.
+
+## Hardware Requirements
+- Raspberry Pi
+- Arduino (optional)
+- GPS module
+- DS3231 RTC module
+- Voltage divider circuit
+
+## Setup
+1. Clone this repository.
+2. Install Python 3.11+ and required packages:
+    ```
+    pip install -r hardware_tester/requirements.txt
+    ```
+3. Connect hardware modules as described in the documentation.
+
+## Usage
+Run the main hardware tester script:
 ```
-[Analog Gauges 0–5V] --> Arduino Nano --USB--> Raspberry Pi <--I2C/SPI--> BerryGPS-IMU V4
+python hardware_tester/main.py
+```
+
+## Documentation
+See `hardware_tester/README.md` for module details and `testing/` for hardware test instructions.
+
+```
 [Volt/Current 0–5V] -->         |                     ^         ^
-                                                                 \---------------------         |
 [12V Indicators] -- I/O Board --> Pi GPIO (3.3V)                |
-GPS UART --> gpsd ----------------------------------------------
 ```
-
 ## Hardware
-
 - Raspberry Pi (with Wi‑Fi, I2C, SPI, UART enabled)
 - Arduino Nano (ATmega328P) or Nano Every
 - 5 x 0–5 V analog outputs from gauges: Boost, Oil Pressure, Fuel Pressure, AFR, Water Temp
