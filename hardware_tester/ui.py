@@ -1,6 +1,14 @@
 """
 UI module: Terminal UI logic for hardware testing suite.
+Enhanced with logging for hardware errors, connection issues, and test results.
 """
+
+import logging
+logging.basicConfig(
+    filename='hardware_tester.log',
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(message)s'
+)
 
 
 def run_ui(config: dict, arduino, gps, voltage_divider) -> None:
@@ -8,6 +16,7 @@ def run_ui(config: dict, arduino, gps, voltage_divider) -> None:
     Run the terminal-based UI for the hardware testing suite.
     Presents a menu and displays test results interactively.
     Accepts config dict for UI preferences and hardware settings, and hardware module instances.
+    Enhanced with logging for hardware errors, connection issues, and test results.
     """
     from rich.console import Console
     from rich.prompt import Prompt
@@ -19,6 +28,18 @@ def run_ui(config: dict, arduino, gps, voltage_divider) -> None:
 
     # Use default Console; ignore theme string for now
     console = Console()
+
+    def log_and_print(msg, level="info"):
+        if level == "error":
+            logging.error(msg)
+            console.print(f"[bold red]Error:[/bold red] {msg}")
+        elif level == "warning":
+            logging.warning(msg)
+            console.print(f"[yellow]Warning:[/yellow] {msg}")
+        else:
+            logging.info(msg)
+            if show_logs:
+                console.print(f"[grey]{msg}[/grey]")
 
     def show_menu() -> None:
         """Display the main menu options."""
@@ -34,10 +55,17 @@ def run_ui(config: dict, arduino, gps, voltage_divider) -> None:
         Args:
             gps_data (dict): Dictionary of GPS metrics.
         """
-        table = Table(title="GPS Test Results")
-        table.add_column("Metric")
-        table.add_column("Value")
-        table.add_row("MPH", str(gps_data.get("mph", "N/A")))
+        try:
+            table = Table(title="GPS Test Results")
+            table.add_column("Metric")
+            table.add_column("Value")
+            table.add_row("MPH", str(gps_data.get("mph", "N/A")))
+            # ...existing code...
+            log_and_print(f"GPS test results: {gps_data}")
+            console.print(table)
+        except Exception as exc:
+            log_and_print(f"GPS test error: {exc}", level="error")
+    # ...existing code...
         table.add_row("Gyro", str(gps_data.get("gyro", "N/A")))
         table.add_row("Compass", str(gps_data.get("compass", "N/A")))
         table.add_row("Location", str(gps_data.get("location", "N/A")))
