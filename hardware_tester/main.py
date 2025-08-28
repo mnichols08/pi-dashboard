@@ -20,6 +20,17 @@ from arduino import ArduinoModule
 from gps import GPSModule
 from voltage_divider import VoltageDividerModule
 
+"""
+Main entry point for hardware tester application.
+"""
+import json
+import os
+import logging
+from ui import run_ui
+from arduino import ArduinoModule
+from gps import GPSModule
+from voltage_divider import VoltageDividerModule
+
 logging.basicConfig(
     filename='hardware_tester.log',
     level=logging.INFO,

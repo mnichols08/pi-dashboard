@@ -8,6 +8,17 @@ import arduino
 import gps
 
 
+"""
+Dashboard server for hardware tester web interface.
+"""
+from flask import Flask, jsonify, send_from_directory
+from flask_cors import CORS
+from hardware_module import HardwareModule
+import os
+import voltage_divider
+import arduino
+import gps
+
 app = Flask(__name__, static_folder=None)
 CORS(app)  # Enable CORS for development
 

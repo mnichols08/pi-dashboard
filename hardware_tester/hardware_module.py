@@ -4,6 +4,9 @@ Enhanced with logging for hardware errors and test results.
 """
 
 from abc import ABC, abstractmethod
+"""
+Hardware module for interfacing with sensors and actuators.
+"""
 import logging
 
 class HardwareModule(ABC):
