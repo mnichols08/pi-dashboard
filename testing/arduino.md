@@ -3,6 +3,30 @@
 
 This guide covers how to verify the correct operation of the five analog gauge inputs (Boost, Oil Pressure, Fuel Pressure, AFR, Water Temp) and the voltage/current sensors connected to the Arduino Nano.
 
+## Hardware Needed
+- Arduino Nano
+- USB cable
+- Analog sensors (0–5 V)
+- Jumper wires
+- Multimeter (for testing)
+- (Optional) Simulated sensor outputs or potentiometers
+
+## Wiring
+- Connect analog sensors to A0–A6 pins
+- Connect Nano to Pi via USB
+- Ensure common ground between sensors, Arduino, and Raspberry Pi
+
+## Flashing the Nano
+- Upload the dashboard Arduino sketch to the Nano using Arduino IDE
+
+## Troubleshooting
+- Check serial port settings on Pi
+- Verify sensor voltage range
+- Confirm Nano is detected (`lsusb` on Pi)
+
+## Usage
+- Run `python main.py` on the Pi to start dashboard and read Nano sensor data
+
 ## Equipment Needed
 
 - Multimeter (capable of measuring DC voltage)

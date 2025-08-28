@@ -3,6 +3,25 @@
 
 This guide describes how to verify that your Raspberry Pi is efficiently communicating with all hardware components in the Pi Automotive Dashboard project.
 
+## Hardware Needed
+- Raspberry Pi (any model with GPIO)
+- MicroSD card
+- Power supply
+- Network connection
+
+## Configuration
+- Install Raspberry Pi OS
+- Enable I2C, SPI, and Serial (`sudo raspi-config`)
+- Install required packages (see README)
+
+## Troubleshooting
+- Check power supply stability
+- Verify interface enablement
+- Use `dmesg` and `lsmod` for hardware status
+
+## Usage
+- Run `python main.py` to start dashboard
+
 ## 1. Prerequisites
 
 - Raspberry Pi OS installed and configured (I2C, SPI, Serial enabled)

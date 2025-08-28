@@ -4,6 +4,25 @@
 ## What is a Voltage Divider?
 A voltage divider is a simple circuit using two resistors to scale down a higher voltage to a lower voltage. For Pi GPIO, it lets you safely read signals like 12 V automotive logic by reducing them to 3.3 V or less.
 
+## Hardware Needed
+- Resistors (e.g., 10kΩ and 3.3kΩ, or as calculated)
+- Breadboard or PCB
+- Jumper wires
+- Multimeter (for testing)
+
+## Wiring
+- Connect resistors in series between 12 V source and Pi GPIO
+- Tap output between resistors for 3.3 V signal
+- Ensure common ground
+
+## Troubleshooting
+- Measure output voltage with multimeter
+- Verify resistor values
+- Check for loose connections
+
+## Usage
+- Use for digital status lights or sensor inputs to Pi
+
 **Basic schematic:**
 
 ```

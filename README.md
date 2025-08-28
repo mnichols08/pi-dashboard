@@ -3,6 +3,48 @@ A real-time dashboard for any vehicle with compatible sensors—including classi
 
 A Raspberry Pi–powered, real‑time automotive dashboard aggregating analog gauges, digital status lights, GPS, and IMU data into a unified UI. Arduino Nano handles 0–5 V analog sensing; the Pi reads digital indicators, GPS, and IMU and renders the dashboard.
 
+## Hardware Requirements
+- Raspberry Pi (any model with GPIO)
+- Arduino Nano (for analog sensing)
+- GPS module (BerryGPS or compatible)
+- DS3231 RTC module
+- Voltage divider circuit (for 12V to 3.3V logic)
+- IMU sensor (optional)
+- Jumper wires, breadboard, and common ground
+
+## Setup Instructions (Summary)
+1. **Clone the repository:**
+    ```powershell
+    git clone https://github.com/mnichols08/pi-dashboard.git
+    cd pi-dashboard
+    ```
+2. **Install Python dependencies:**
+    ```powershell
+    cd hardware_tester
+    pip install -r requirements.txt
+    ```
+3. **Connect hardware modules** as described in the hardware-specific markdown files in the `testing/` folder.
+4. **Run the main tester:**
+    ```powershell
+    python main.py
+    ```
+
+## Usage Examples
+- **Run all hardware tests:**
+  ```powershell
+  python main.py
+  ```
+- **Test a specific module:**
+  Run the relevant script directly (e.g., `python gps.py`).
+
+## Documentation
+See the `testing/` folder for hardware-specific setup and troubleshooting guides:
+- `arduino.md`: Arduino serial communication
+- `berrygps.md`: GPS module setup
+- `ds3231rtc.md`: RTC module setup
+- `raspberrypi.md`: Raspberry Pi configuration
+- `voltage-divider.md`: Voltage divider circuit
+
 ## Quick Start
 
 1. **Connect hardware:** Wire your analog sensors (0–5 V) to the Arduino Nano, and digital status lights to the Pi GPIO via a 12 V → 3.3 V divider board. Ensure a common ground.

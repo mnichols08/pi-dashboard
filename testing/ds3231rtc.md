@@ -1,6 +1,23 @@
 ## DS3231 RTC Setup & Usage Guide for Raspberry Pi
 
+## Overview
 This guide explains how to connect, configure, and use the DS3231 Real-Time Clock (RTC) module with your Raspberry Pi for accurate timekeeping, even without internet access.
+
+## Hardware Needed
+- DS3231 RTC module
+- Jumper wires
+
+## Wiring
+- Connect SDA/SCL to Pi GPIO (pins 3/5)
+- Power via Pi 3.3V or 5V pin
+
+## Troubleshooting
+- Check I2C address (`i2cdetect -y 1`)
+- Confirm module is detected
+- Replace battery if time resets
+
+## Usage
+- Run `python main.py` to sync and read RTC time
 
 ### Hardware Required
 

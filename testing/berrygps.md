@@ -2,6 +2,23 @@
 
 This guide covers how to set up and test the BerryGPS-IMU V4 module on your Raspberry Pi for use with the Pi Automotive Dashboard project.
 
+## Hardware Needed
+- BerryGPS-IMU V4 module (or compatible)
+- Jumper wires
+
+## Wiring
+- Connect BerryGPS UART TX/RX to Pi GPIO (pins 14/15)
+- Optionally connect I2C (SDA/SCL) for advanced features
+- Power via Pi 3.3V or 5V pin
+
+## Troubleshooting
+- Ensure GPS antenna is connected
+- Check UART/I2C connections
+- Use `gpsmon` or `cgps` to verify data
+
+## Usage
+- Run `python gps.py` to test GPS data acquisition
+
 ### Hardware Setup
 
 1. **Connect BerryGPS-IMU V4 to Raspberry Pi:**
